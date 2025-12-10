@@ -1,0 +1,76 @@
+version: '3'
+
+tasks:
+  build:
+    desc: Build the todototum binary
+    cmds:
+      - go build -o todototum .
+
+  test:
+    desc: Run all tests with coverage
+    cmds:
+      - go test ./... -v -cover
+
+  fmt:
+    desc: Format and tidy code
+    cmds:
+      - go fmt ./...
+      - goimports -w .
+      - go mod tidy
+
+  lint:
+    desc: Run static analysis
+    deps: [tools:install:lint]
+    cmds:
+      - golangci-lint run
+
+  cover:
+    desc: Run tests and open HTML coverage report
+    cmds:
+      - go test ./... -coverprofile=coverage.out
+      - go tool cover -html=coverage.out
+
+  check:
+    desc: Run format, lint, and tests (your local pre-commit check)
+    cmds:
+      - task fmt
+      - task lint
+      - task test
+
+  run:
+    desc: Run todototum scan locally (defaults TARGET to samples/sample-project)
+    vars:
+      TARGET: '{{.TARGET | default "samples/sample-project"}}'
+    cmds:
+      - go run main.go scan --path {{.TARGET}} --ignore vendor,.git,node_modules
+
+
+  # Generate a JSON report from a target path (defaults to the sample project)
+  report:json:
+    desc: Generate JSON report (defaults TARGET to samples/sample-project)
+    vars:
+      TARGET: '{{.TARGET | default "samples/sample-project"}}'
+      OUT: '{{.OUT | default "report.json"}}'
+      OUT_DIR: '{{.OUT_DIR | default "reports"}}'
+    cmds:
+      - go run main.go scan --path {{.TARGET}} --report json --out {{.OUT}} --out-dir {{.OUT_DIR}}
+
+  # Generate an HTML report from a target path (defaults to the sample project)
+  report:html:
+    desc: Generate HTML report (defaults TARGET to samples/sample-project)
+    vars:
+      TARGET: '{{.TARGET | default "samples/sample-project"}}'
+      OUT: '{{.OUT | default "report.html"}}'
+      OUT_DIR: '{{.OUT_DIR | default "reports"}}'
+    cmds:
+      - go run main.go scan --path {{.TARGET}} --report html --out {{.OUT}} --out-dir {{.OUT_DIR}}
+
+  # Generate a Markdown report from a target path (defaults to the sample project)
+  report:md:
+    desc: Generate Markdown report (defaults TARGET to samples/sample-project)
+    vars:
+      TARGET: '{{.TARGET | default "samples/sample-project"}}'
+      OUT: '{{.OUT | default "report.md"}}'
+      OUT_DIR: '{{.OUT_DIR | default "reports"}}'
+    cmds:
+      - go run main.go scan --path {{.TARGET}} --report md --out {{.OUT}} --out-dir {{.OUT_DIR}}

@@ -1,0 +1,40 @@
+# Go build artifacts
+/todototum
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binaries
+*.test
+
+# Output of `go build`
+*.out
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+
+# Dependency and module files
+vendor/
+
+# Temporary / generated files
+tmp/
+dist/
+build/
+coverage/
+*.log
+
+# macOS & system
+.DS_Store
+Thumbs.db
+
+# Taskfile cache
+.task/
+
+# Reports output (generated)
+reports/

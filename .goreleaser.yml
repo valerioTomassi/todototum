@@ -1,0 +1,51 @@
+# GoReleaser config for todototum
+version: 2
+
+project_name: todototum
+
+builds:
+  - id: todototum
+    main: ./
+    env:
+      - CGO_ENABLED=0
+    goos: [linux, darwin]
+    goarch: [amd64, arm64]
+    ldflags:
+      - -s -w -X github.com/valerioTomassi/todototum/cmd.version={{.Version}} -X github.com/valerioTomassi/todototum/cmd.commit={{.Commit}} -X github.com/valerioTomassi/todototum/cmd.date={{.Date}}
+
+archives:
+  - id: todototum
+    name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}'
+
+checksum:
+  name_template: "checksums.txt"
+
+changelog:
+  sort: desc
+  use: github
+
+release:
+  github:
+    owner: valerioTomassi
+    name: todototum
+
+brews:
+  - name: todototum
+    ids: [todototum]
+    description: "See the whole TODO picture. Scan your codebase and generate reports"
+    homepage: "https://github.com/valerioTomassi/todototum"
+    license: "MIT"
+    directory: Formula
+    repository:
+      owner: valerioTomassi
+      name: homebrew-taps
+    commit_author:
+      name: goreleaser
+      email: noreply@goreleaser.com
+    install: |
+      bin.install "todototum"
+    test: |
+      system "#{bin}/todototum", "--version"
+
+snapshot:
+  version_template: "{{ incpatch .Version }}-next"
