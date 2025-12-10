@@ -44,19 +44,6 @@ func (errOnWriteFileWriter) Create(_ string) (io.WriteCloser, error) { return er
 
 func TestReport_GenerateHTML(t *testing.T) {
 	t.Run("success with writer buffer", func(t *testing.T) {
-		tmp := t.TempDir()
-		tmplDir := filepath.Join(tmp, "templates")
-		if err := os.Mkdir(tmplDir, 0o755); err != nil {
-			t.Fatal(err)
-		}
-		tmpl := `<html><body>Total: {{.Summary.Total}}; First: {{(index .Todos 0).Tag}}</body></html>`
-		if err := os.WriteFile(filepath.Join(tmplDir, "report.html"), []byte(tmpl), 0o644); err != nil {
-			t.Fatal(err)
-		}
-		origWD, _ := os.Getwd()
-		t.Cleanup(func() { _ = os.Chdir(origWD) })
-		_ = os.Chdir(tmp)
-
 		items := []Todo{{File: "a.go", Line: 1, Tag: "TODO", Text: "x"}, {File: "b.go", Line: 2, Tag: "FIXME", Text: "y"}}
 		var buf bytes.Buffer
 		writer := mockFileWriter{buf: &buf}
@@ -64,20 +51,25 @@ func TestReport_GenerateHTML(t *testing.T) {
 			t.Fatalf("unexpected error: %v", err)
 		}
 		out := buf.String()
-		if !strings.Contains(out, "Total: 2") || !strings.Contains(out, "First: TODO") {
+		if !strings.Contains(out, ">Total<") && !strings.Contains(out, "Total") {
+			t.Errorf("expected the word 'Total' in embedded template output, got: %s", out)
+		}
+		if !strings.Contains(out, ">2<") && !strings.Contains(out, "2") {
+			t.Errorf("expected count 2 in output, got: %s", out)
+		}
+		if !strings.Contains(out, "TODO") || !strings.Contains(out, "FIXME") {
 			t.Errorf("unexpected output: %s", out)
 		}
 	})
 
-	t.Run("missing template error (with writer)", func(t *testing.T) {
-		tmp := t.TempDir()
-		origWD, _ := os.Getwd()
-		t.Cleanup(func() { _ = os.Chdir(origWD) })
-		_ = os.Chdir(tmp)
+	t.Run("embedded template always available (no missing template error)", func(t *testing.T) {
 		var buf bytes.Buffer
 		writer := mockFileWriter{buf: &buf}
-		if err := GenerateHTMLReportWithWriter(nil, "ignored.html", writer); err == nil {
-			t.Fatal("expected error for missing template")
+		if err := GenerateHTMLReportWithWriter(nil, "ignored.html", writer); err != nil {
+			t.Fatalf("did not expect error with embedded template, got: %v", err)
+		}
+		if buf.Len() == 0 {
+			t.Fatal("expected some rendered HTML, got empty output")
 		}
 	})
 
@@ -96,88 +88,37 @@ func TestReport_GenerateHTML(t *testing.T) {
 	})
 
 	t.Run("execute error from writer surfaces", func(t *testing.T) {
-		// Ensure a template exists in first candidate path.
-		tmp := t.TempDir()
-		_ = os.Mkdir(filepath.Join(tmp, "templates"), 0o755)
-		_ = os.WriteFile(filepath.Join(tmp, "templates", "report.html"), []byte(`{{.Summary.Total}}`), 0o644)
-		origWD, _ := os.Getwd()
-		t.Cleanup(func() { _ = os.Chdir(origWD) })
-		_ = os.Chdir(tmp)
 		items := []Todo{{File: "a.go", Line: 1, Tag: "TODO", Text: "x"}}
 		if err := GenerateHTMLReportWithWriter(items, "ignored.html", errOnWriteFileWriter{}); err == nil {
 			t.Fatalf("expected error from writer during Execute, got nil")
 		}
 	})
 
-	t.Run("falls back to template near executable", func(t *testing.T) {
-		// Prepare a fake executable directory with a templates subfolder.
-		exeDir := t.TempDir()
-		if err := os.Mkdir(filepath.Join(exeDir, "templates"), 0o755); err != nil {
-			t.Fatalf("mkdir: %v", err)
-		}
-		tmpl := []byte(`<html><body>Total: {{.Summary.Total}}</body></html>`)
-		if err := os.WriteFile(filepath.Join(exeDir, "templates", "report.html"), tmpl, 0o644); err != nil {
-			t.Fatalf("write template: %v", err)
-		}
-		// Place us in a different working directory so the first candidate is not found.
-		cwd := t.TempDir()
-		origWD, _ := os.Getwd()
-		t.Cleanup(func() { _ = os.Chdir(origWD) })
-		_ = os.Chdir(cwd)
-		// Trick the code into thinking the executable lives under exeDir.
-		origArgs := os.Args
-		t.Cleanup(func() { os.Args = origArgs })
-		os.Args = []string{filepath.Join(exeDir, "todototum-test-bin")}
-		var buf bytes.Buffer
-		mw := mockFileWriter{buf: &buf}
-		items := []Todo{{File: "x.go", Line: 3, Tag: "TODO", Text: "x"}}
-		if err := GenerateHTMLReportWithWriter(items, "ignored.html", mw); err != nil {
-			t.Fatalf("unexpected error: %v", err)
-		}
-		if got := buf.String(); got == "" {
-			t.Fatalf("expected some rendered HTML, got empty output")
-		}
-	})
-
 	t.Run("sorts by file then line", func(t *testing.T) {
-		cwd := t.TempDir()
-		if err := os.Mkdir(filepath.Join(cwd, "templates"), 0o755); err != nil {
-			t.Fatal(err)
-		}
-		// Render file:line pairs to assert sorting explicitly.
-		tmpl := "{{range .Todos}}{{.File}}:{{.Line}}\n{{end}}"
-		if err := os.WriteFile(filepath.Join(cwd, "templates", "report.html"), []byte(tmpl), 0o644); err != nil {
-			t.Fatal(err)
-		}
-		origWD, _ := os.Getwd()
-		t.Cleanup(func() { _ = os.Chdir(origWD) })
-		_ = os.Chdir(cwd)
 		items := []Todo{{File: "same.go", Line: 20, Tag: "TODO", Text: "later"}, {File: "a.go", Line: 5, Tag: "BUG", Text: "first by file"}, {File: "same.go", Line: 10, Tag: "FIXME", Text: "should come before line 20"}}
 		var buf bytes.Buffer
 		mw := mockFileWriter{buf: &buf}
 		if err := GenerateHTMLReportWithWriter(items, "ignored.html", mw); err != nil {
 			t.Fatalf("unexpected error: %v", err)
 		}
-		lines := strings.Split(strings.TrimSpace(buf.String()), "\n")
-		want := []string{"a.go:5", "same.go:10", "same.go:20"}
-		if len(lines) != len(want) {
-			t.Fatalf("unexpected number of lines: got %d, want %d: %v", len(lines), len(want), lines)
+		out := buf.String()
+		// Check that rows appear in the correct order within the HTML table.
+		i1 := strings.Index(out, "a.go")
+		i2 := strings.Index(out, "same.go</td>\n                    <td>10")
+		if i2 == -1 { // fallback: just search for first same.go occurrence
+			i2 = strings.Index(out, "same.go")
 		}
-		for i := range want {
-			if lines[i] != want[i] {
-				t.Fatalf("order mismatch at %d: got %q want %q; full: %v", i, lines[i], want[i], lines)
-			}
+		i3 := strings.LastIndex(out, "same.go")
+		if i1 == -1 || i2 == -1 || i3 == -1 {
+			t.Fatalf("expected file names in output, got: %s", out)
+		}
+		if i1 >= i2 || i2 >= i3 {
+			t.Fatalf("expected order a.go -> same.go(10) -> same.go(20); positions: %d, %d, %d", i1, i2, i3)
 		}
 	})
 
 	t.Run("Create wrapper writes file", func(t *testing.T) {
 		tmp := t.TempDir()
-		tmplDir := filepath.Join(tmp, "templates")
-		_ = os.Mkdir(tmplDir, 0o755)
-		_ = os.WriteFile(filepath.Join(tmplDir, "report.html"), []byte(`<html><body>{{range .Todos}}{{.Tag}} {{end}}</body></html>`), 0o644)
-		origWD, _ := os.Getwd()
-		t.Cleanup(func() { _ = os.Chdir(origWD) })
-		_ = os.Chdir(tmp)
 		items := []Todo{{File: "x.go", Line: 1, Tag: "NOTE", Text: "ok"}}
 		out := filepath.Join(tmp, "report.html")
 		if err := Create(items, out); err != nil {

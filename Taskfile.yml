@@ -20,7 +20,6 @@ tasks:
 
   lint:
     desc: Run static analysis
-    deps: [tools:install:lint]
     cmds:
       - golangci-lint run
 

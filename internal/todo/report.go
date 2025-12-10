@@ -1,13 +1,13 @@
 package todo
 
 import (
+	"embed"
 	"encoding/json"
 	"fmt"
 	"html/template"
 	"io"
 	"math"
 	"os"
-	"path/filepath"
 	"sort"
 	"strings"
 )
@@ -180,18 +180,15 @@ func GenerateMarkdownReportWithWriter(items []Todo, output string, w FileWriter)
 	return err
 }
 
-// parseReportTemplate tries to locate and parse the HTML template from common
-// locations. It returns the parsed template along with the candidate paths
-// considered to aid error reporting.
+//go:embed templates/report.html
+var templatesFS embed.FS
+
+// parseReportTemplate parses the embedded HTML template.
+// The template is compiled into the binary via Go's //go:embed. No filesystem
+// lookup or overrides are performed.
 func parseReportTemplate() (*template.Template, []string, error) {
-	candidates := []string{
-		"templates/report.html",
-		filepath.Join(filepath.Dir(os.Args[0]), "templates", "report.html"),
+	if tmpl, err := template.ParseFS(templatesFS, "templates/report.html"); err == nil {
+		return tmpl, []string{"embedded:templates/report.html"}, nil
 	}
-	for _, p := range candidates {
-		if tmpl, err := template.ParseFiles(p); err == nil {
-			return tmpl, candidates, nil
-		}
-	}
-	return nil, candidates, fmt.Errorf("template not found")
+	return nil, []string{"embedded:templates/report.html"}, fmt.Errorf("template not found")
 }
