@@ -1,0 +1,5532 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>todototum report</title>
+    <style>
+        :root {
+            color-scheme: light dark;
+            --bg: #f9fafb;
+            --text: #111;
+            --border: #e5e7eb;
+            --accent: #2563eb;
+            --todo: #f59e0b;
+            --fixme: #ef4444;
+            --bug: #b91c1c;
+            --note: #0ea5e9;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            margin: 2em auto;
+            max-width: 960px;
+            line-height: 1.6;
+        }
+
+        h1 {
+            margin-bottom: 0.2em;
+            font-size: 1.8rem;
+            color: var(--accent);
+        }
+
+        .summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1em;
+            margin: 1.5em 0;
+        }
+
+        .summary .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 0.5em;
+            padding: 0.8em 1.2em;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.6em;
+            min-height: 64px;
+        }
+
+        .summary .count {
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .summary .label {
+            opacity: 0.8;
+            font-weight: 600;
+        }
+
+        .summary .percent {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid var(--border);
+            padding: 8px 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #f3f4f6;
+        }
+
+        tr:nth-child(even) {
+            background: #fafafa;
+        }
+
+        .tag {
+            font-weight: 600;
+            padding: 0.2em 0.5em;
+            border-radius: 0.3em;
+        }
+
+        .tag.TODO {
+            background: var(--todo);
+            color: #000;
+        }
+
+        .tag.FIXME {
+            background: var(--fixme);
+            color: #fff;
+        }
+
+        .tag.BUG {
+            background: var(--bug);
+            color: #fff;
+        }
+
+        .tag.NOTE {
+            background: var(--note);
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<h1>todototum report</h1>
+
+<section class="summary">
+    <div class="card">
+        <div class="label">Total</div>
+        <div class="count">765</div>
+    </div>
+    
+    <div class="card">
+        <div class="label"><span class="tag BUG">BUG</span></div>
+        <div style="text-align:right">
+            <div class="count">10</div>
+            <div class="percent">1%</div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="label"><span class="tag FIXME">FIXME</span></div>
+        <div style="text-align:right">
+            <div class="count">3</div>
+            <div class="percent">0%</div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="label"><span class="tag NOTE">NOTE</span></div>
+        <div style="text-align:right">
+            <div class="count">370</div>
+            <div class="percent">48%</div>
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="label"><span class="tag TODO">TODO</span></div>
+        <div style="text-align:right">
+            <div class="count">382</div>
+            <div class="percent">50%</div>
+        </div>
+    </div>
+    
+</section>
+
+<table>
+    <thead>
+    <tr>
+        <th>File</th>
+        <th>Line</th>
+        <th>Tag</th>
+        <th>Text</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+    <tr>
+        <td>docs/architecture/VOP/INCOMING_VOP_FLOW.md</td>
+        <td>24</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over TP, C: Depending on the VOP Response, the other PSP decides on the following actions.&lt;br&gt;It is not on our hands if a transfer will be initiated or not</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/VOP/Outgoing_VOP_FLOW.md</td>
+        <td>28</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over C, TP: 2 Options:&lt;br&gt; 1. Either Hard Require of Name override and retriggering VOP again&lt;br&gt;2. Or just warning and upon confirmation, normal transfer initiation.</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/VOP/Outgoing_VOP_FLOW.md</td>
+        <td>37</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over C, TP: Options:&lt;br&gt; 1 Retry -&gt; Initiates VOP Process again.&lt;br&gt;2. Cancel -&gt; Stops the Process&lt;br&gt;3. Proceed -&gt; Initiates Actual Payment</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/VOP/Outgoing_VOP_FLOW.md</td>
+        <td>39</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over C, TP: On Confirmation, normal initiation of a transfer: NO CHANGE FROM HERE</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/balance check/balance check.md</td>
+        <td>13</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of i: Submodule will treat these calls as external services &lt;br&gt; hence outside of transactions</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/balance check/balance check.md</td>
+        <td>24</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of bc: returning the current amount &lt;br&gt; can be useful for managing &lt;br&gt; bulks and bulking less transfers</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/balance check/balance check.md</td>
+        <td>36</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of i: Submodule will treat these calls as external services &lt;br&gt; hence outside of transactions</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/balance check/balance check.md</td>
+        <td>40</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of bc: async event</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/credit/incoming/returns/simplified-inbound-sepa-return-flow.md</td>
+        <td>16</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of mts: Previously we notified MTS &lt;br/&gt; of a new incoming transfer.&lt;br/&gt;This is the answer</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/credit/incoming/returns/simplified-inbound-sepa-return-flow.md</td>
+        <td>18</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over tp, mts: Async over Kafka</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/credit/incoming/returns/simplified-inbound-sepa-return-flow.md</td>
+        <td>23</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over tp, sp: Async over RabbitMQ</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/credit/incoming/returns/simplified-inbound-sepa-return-flow.md</td>
+        <td>29</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over sp: Async over RabbitMQ</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/credit/incoming/returns/simplified-inbound-sepa-return-flow.md</td>
+        <td>38</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over tp, sp: Async over RabbitMQ</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/credit/incoming/returns/simplified-inbound-sepa-return-flow.md</td>
+        <td>43</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over tp, mts: Async over Kafka</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/credit/outgoing/outgoing-sepa-bcs.md</td>
+        <td>41</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over EscrowProcessor, BCS : bcs &#34;struggles&#34; to understand when bank bookings are actually &#34;new&#34; &lt;br&gt; or connected to a previous money transfer request</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/credit/outgoing/outgoing-sepa-bcs.md</td>
+        <td>42</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over EscrowProcessor, BCS : bcs could simply redirect here the bank booking that move money out of our accounts</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/credit/outgoing/outgoing-sepa.md</td>
+        <td>32</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over MoneyTransfer, Bundesbank : kind of still to be done, due to missing connection with Target2</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/credit/outgoing/returns/simplified-outbound-sepa-return-flow.md</td>
+        <td>19</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over sp: Async communication over RabbitMQ</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/credit/outgoing/returns/simplified-outbound-sepa-return-flow.md</td>
+        <td>25</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over tp, sp: Async communication over RabbitMQ</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/credit/outgoing/returns/simplified-outbound-sepa-return-flow.md</td>
+        <td>30</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over tp, mts: Async communication over Kafka</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/debit/incoming/flows/fas-cancellation-flow.md</td>
+        <td>27</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over fas,mts: Notification on same topic</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/debit/incoming/flows/incoming-flow_happy_path.md</td>
+        <td>27</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over fas,mts: Notification on same topic</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/debit/incoming/flows/incoming-flow_happy_path.md</td>
+        <td>29</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over fas,tp: When Collection is Valid FinancialAddressService does not cancel it</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/debit/incoming/flows/incoming-flow_happy_path.md</td>
+        <td>58</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over CSM, tp: SETTLEMENT happens at around 8AM</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/debit/incoming/flows/incoming-flow_happy_path.md</td>
+        <td>66</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over sp: Settlement Flow Simplified here</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/debit/incoming/flows/prior_settlement_return(mts).md</td>
+        <td>18</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over CSM, mts: Previously TPS sent the notification of a RECEIVED Incoming Transfer</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/debit/incoming/flows/prior_settlement_return(mts).md</td>
+        <td>39</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over CSM, sp: Depending on when this happens,&lt;br&gt;before end of 2nd submission window (10AM minus margin) -&gt; pacs.002,&lt;br&gt;after end of 2nd submission window (10AM) -&gt; pacs.004</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/debit/incoming/flows/recalls.md</td>
+        <td>18</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of CSM: Previously TPS sent the notification of a PENDING Incoming Transfer</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/debit/incoming/flows/rejects(mts).md</td>
+        <td>18</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over CSM, mts: Previously TPS sent the notification of a PENDING Incoming Transfer</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/debit/incoming/flows/returns_refunds.md</td>
+        <td>17</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over CSM, mts: Previously we SETTLED an incoming debit (COLLECTED) &lt;br/&gt; but the CSM tells us that &lt;br&gt; the creditor sent money back</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/debit/incoming/flows/reversals.md</td>
+        <td>17</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over CSM, mts: Previously we SETTLED an incoming debit (COLLECTED) &lt;br/&gt; but the CSM tells us that &lt;br&gt; the creditor sent money back</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/instant/refund-flow.md</td>
+        <td>33</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of im: In here we can build &lt;br&gt; a retry mechanism</td>
+    </tr>
+    
+    <tr>
+        <td>docs/architecture/sepa/instant/refund-flow.md</td>
+        <td>42</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of im: Ops must take manual action</td>
+    </tr>
+    
+    <tr>
+        <td>docs/t2/examples/Camt.050_Example_simplified.xml</td>
+        <td>8</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Before sending it for testing, set it to testing day --&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>docs/t2/examples/Camt.050_Example_simplified.xml</td>
+        <td>68</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Before sending it for testing, set it to testing day &#43; 1 --&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>docs/t2/examples/Camt.050_Example_with_comments.xml</td>
+        <td>23</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Check relation between Branch &amp; FinInst at page 799 --&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>docs/t2/examples/Camt.050_Example_with_comments.xml</td>
+        <td>28</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: fill in  page 800 --&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>docs/t2/examples/Camt.050_Example_with_comments.xml</td>
+        <td>46</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: fill in  page 801 --</td>
+    </tr>
+    
+    <tr>
+        <td>docs/t2/examples/Camt.050_Example_with_comments.xml</td>
+        <td>56</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: fill in  page 803 -&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>docs/t2/examples/Camt.050_Example_with_comments.xml</td>
+        <td>62</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: fill in  page 669 --&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>docs/t2/examples/Camt.050_Example_with_comments.xml</td>
+        <td>76</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: fill in  page 780 --&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>docs/t2/examples/pacs.004_RTGS_PaymentReturnOrder_bs023.xml</td>
+        <td>6</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Before sending it for testing, set it to testing day --&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>docs/t2/examples/pacs.008_RTGS_CustomerCreditTransferOrder.xml</td>
+        <td>7</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Before sending it for testing, set it to testing day --&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>docs/t2/examples/pacs.008_RTGS_CustomerCreditTransferOrder.xml</td>
+        <td>24</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Before sending it for testing, set it to testing day &#43; 1 --&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>13</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: #f59e0b;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>14</td>
+        <td><span class="tag FIXME">FIXME</span></td>
+        <td>FIXME: #ef4444;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>15</td>
+        <td><span class="tag BUG">BUG</span></td>
+        <td>BUG: #b91c1c;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>16</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: #0ea5e9;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>94</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: {</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>95</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: );</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>99</td>
+        <td><span class="tag FIXME">FIXME</span></td>
+        <td>FIXME: {</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>100</td>
+        <td><span class="tag FIXME">FIXME</span></td>
+        <td>FIXME: );</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>104</td>
+        <td><span class="tag BUG">BUG</span></td>
+        <td>BUG: {</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>105</td>
+        <td><span class="tag BUG">BUG</span></td>
+        <td>BUG: );</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>109</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: {</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>110</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: );</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>125</td>
+        <td><span class="tag BUG">BUG</span></td>
+        <td>BUG: &#34;&gt;BUG&lt;/span&gt;&lt;/div&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>133</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/div&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>141</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/div&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>164</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>165</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over TP, C: Depending on the VOP Response, the other PSP decides on the following actions.&amp;lt;br&amp;gt;It is not on our hands if a transfer will be initiated or not&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>171</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>172</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over C, TP: 2 Options:&amp;lt;br&amp;gt; 1. Either Hard Require of Name override and retriggering VOP again&amp;lt;br&amp;gt;2. Or just warning and upon confirmation, normal transfer initiation.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>178</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>179</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over C, TP: Options:&amp;lt;br&amp;gt; 1 Retry -&amp;gt; Initiates VOP Process again.&amp;lt;br&amp;gt;2. Cancel -&amp;gt; Stops the Process&amp;lt;br&amp;gt;3. Proceed -&amp;gt; Initiates Actual Payment&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>185</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>186</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over C, TP: On Confirmation, normal initiation of a transfer: NO CHANGE FROM HERE&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>192</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>193</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of i: Submodule will treat these calls as external services &amp;lt;br&amp;gt; hence outside of transactions&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>199</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>200</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of bc: returning the current amount &amp;lt;br&amp;gt; can be useful for managing &amp;lt;br&amp;gt; bulks and bulking less transfers&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>206</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>207</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of i: Submodule will treat these calls as external services &amp;lt;br&amp;gt; hence outside of transactions&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>213</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>214</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of bc: async event&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>220</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>221</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of mts: Previously we notified MTS &amp;lt;br/&amp;gt; of a new incoming transfer.&amp;lt;br/&amp;gt;This is the answer&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>227</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>228</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over tp, mts: Async over Kafka&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>234</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>235</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over tp, sp: Async over RabbitMQ&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>241</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>242</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over sp: Async over RabbitMQ&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>248</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>249</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over tp, sp: Async over RabbitMQ&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>255</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>256</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over tp, mts: Async over Kafka&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>262</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>263</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over EscrowProcessor, BCS : bcs &amp;#34;struggles&amp;#34; to understand when bank bookings are actually &amp;#34;new&amp;#34; &amp;lt;br&amp;gt; or connected to a previous money transfer request&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>269</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>270</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over EscrowProcessor, BCS : bcs could simply redirect here the bank booking that move money out of our accounts&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>276</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>277</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over MoneyTransfer, Bundesbank : kind of still to be done, due to missing connection with Target2&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>283</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>284</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over sp: Async communication over RabbitMQ&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>290</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>291</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over tp, sp: Async communication over RabbitMQ&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>297</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>298</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over tp, mts: Async communication over Kafka&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>304</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>305</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over fas,mts: Notification on same topic&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>311</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>312</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over fas,mts: Notification on same topic&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>318</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>319</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over fas,tp: When Collection is Valid FinancialAddressService does not cancel it&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>325</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>326</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over CSM, tp: SETTLEMENT happens at around 8AM&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>332</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>333</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over sp: Settlement Flow Simplified here&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>339</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>340</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over CSM, mts: Previously TPS sent the notification of a RECEIVED Incoming Transfer&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>346</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>347</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over CSM, sp: Depending on when this happens,&amp;lt;br&amp;gt;before end of 2nd submission window (10AM minus margin) -&amp;gt; pacs.002,&amp;lt;br&amp;gt;after end of 2nd submission window (10AM) -&amp;gt; pacs.004&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>353</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>354</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of CSM: Previously TPS sent the notification of a PENDING Incoming Transfer&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>360</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>361</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over CSM, mts: Previously TPS sent the notification of a PENDING Incoming Transfer&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>367</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>368</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over CSM, mts: Previously we SETTLED an incoming debit (COLLECTED) &amp;lt;br/&amp;gt; but the CSM tells us that &amp;lt;br&amp;gt; the creditor sent money back&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>374</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>375</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over CSM, mts: Previously we SETTLED an incoming debit (COLLECTED) &amp;lt;br/&amp;gt; but the CSM tells us that &amp;lt;br&amp;gt; the creditor sent money back&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>381</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>382</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of im: In here we can build &amp;lt;br&amp;gt; a retry mechanism&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>388</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>389</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: right of im: Ops must take manual action&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>395</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>396</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Before sending it for testing, set it to testing day --&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>402</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>403</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Before sending it for testing, set it to testing day &amp;#43; 1 --&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>409</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>410</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Check relation between Branch &amp;amp; FinInst at page 799 --&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>416</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>417</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: fill in  page 800 --&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>423</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>424</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: fill in  page 801 --&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>430</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>431</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: fill in  page 803 -&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>437</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>438</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: fill in  page 669 --&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>444</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>445</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: fill in  page 780 --&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>451</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>452</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Before sending it for testing, set it to testing day --&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>458</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>459</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Before sending it for testing, set it to testing day --&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>465</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>466</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Before sending it for testing, set it to testing day &amp;#43; 1 --&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>472</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>473</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: this will apply duplication prevention, meaning that given a list with length N, your application service&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>479</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>480</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>486</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>487</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over RSSFAS: Retry mechanism&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>493</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>494</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over FPDAS: Manual intervention may be required&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>500</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>501</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>507</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>508</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>514</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>515</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: https://traderepublic.atlassian.net/browse/PE-97888&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>521</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>522</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Remove default value PE-95999 after deployment&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>528</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>529</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Remove default value PE-95999 after deployment&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>535</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>536</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>542</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>543</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: the domain rejection reason should already be in the Command, an not passed a String and then parsed again&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>549</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>550</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>556</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>557</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>563</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>564</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: to be removed once we actually go live&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>570</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>571</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>577</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>578</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: In the future we may want to handle this edge case and have a proper flow for it. Leaving the try catch to make us more aware of it. It depends on how frequently this happens.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>584</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>585</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>591</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>592</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: I would love to split this section from being: get file, split it, process all to&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>598</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>599</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>605</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>606</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>612</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>613</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Temp check - will be removed after rolling this out completely&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>619</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>620</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Temp check - will be removed after rolling this out completely&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>626</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>627</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: This is a temporary solution which should be removed after we start to parse TIPS C54 account statements&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>633</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>634</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: This is a temporary solution which should be removed after we start to parse TIPS C54 account statements&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>640</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>641</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: remove feature flag after successful switching to the events-driven execution&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>647</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>648</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-89882&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>654</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>655</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = if (withNote) command.toString() else &amp;#34;&amp;#34;,&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>661</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>662</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = if (withNote) command.toString() else &amp;#34;&amp;#34;,&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>668</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>669</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-72093 : Don&amp;#39;t allow transition to RECEIVED&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>675</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>676</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Pass actual value with PE-89537&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>682</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>683</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Pass actual value with PE-89537&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>689</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>690</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: add our TR as Source Account&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>696</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>697</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: this should be a SepaBulkRejectionReason object... this sounds like a Bulk!&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>703</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>704</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: this should be a SepaBulkRejectionReasonFactory object... this sounds like a Bulk!&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>710</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>711</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: maybe add reasons here too&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>717</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>718</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: FIX THIS PROPERLY if Really needed?&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>724</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>725</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: FIX THIS PROPERLY if Really needed?&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>731</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>732</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: FIX THIS PROPERLY if Really needed?&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>738</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>739</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Change this in&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>745</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>746</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: , this isn&amp;#39;t a DomainEvent&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>752</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>753</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: should have 1 class to create the message and 1 to sign it.. but for another day&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>759</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>760</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: https://traderepublic.atlassian.net/browse/PE-81440&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>766</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>767</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: This is a temporary solution which should be removed after we start to parse TIPS C54 account statements&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>773</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>774</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: , this isn&amp;#39;t a DomainEvent&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>780</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>781</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-57124 use the code below to jumpstart&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>787</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>788</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: that: a Settled Credit Files has several fields for the bulks, one for each bulk of logical files.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>794</td>
+        <td><span class="tag BUG">BUG</span></td>
+        <td>BUG: &#34;&gt;BUG&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>795</td>
+        <td><span class="tag BUG">BUG</span></td>
+        <td>BUG: on [FlowKt_Context] line 125 -&amp;gt; it should be a AND condition, not a OR&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>801</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>802</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: to developer: implementation should be a valid spring bean.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>808</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>809</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: properly add reasons&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>815</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>816</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Remove this with https://traderepublic.atlassian.net/browse/PE-76534&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>822</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>823</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , once we store this data, we should only call the mappers if the data is null&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>829</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>830</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , once we store this data, we should only call the mappers if the data is null&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>836</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>837</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , once we store this data, we should only call the mappers if the data is null&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>843</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>844</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , check the schema if it supports this&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>850</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>851</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , check the schema if it supports this&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>857</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>858</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , check the schema if it supports this&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>864</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>865</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: We need proper Tracing -&amp;gt; https://traderepublic.atlassian.net/browse/PE-59838&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>871</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>872</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: after PR approval move this into a generic outbox package, as now it&amp;#39;s not rabbit specific :)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>878</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>879</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: replace the whole interface with something leaner&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>885</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>886</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Remove this after the feature flag is enabled and removed&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>892</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>893</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-58033&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>899</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>900</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-58033&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>906</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>907</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: kept it way simple because it might be worth refactoring into a &amp;#34;Report generic dispatcher&amp;#34;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>913</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>914</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: this and the EndOfTheDay are way too similar, might be worth refactoring on the next round&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>920</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>921</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: this and the EndOfTheDay are way too similar, might be worth refactoring on the next round&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>927</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>928</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Change this in&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>934</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>935</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: , incompatible with Flyway version 9.20.1 due to broken Spring compatibility.&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>941</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>942</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: ,&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>948</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>949</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: traceId?&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>955</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>956</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: make it better, but this is just for the launch&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>962</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>963</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: remove one day the transaction manager from here... useless. Problem is, without this,&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>969</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>970</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: -&amp;gt; https://traderepublic.atlassian.net/browse/PE-83843 better mapping&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>976</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>977</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-59838 Remove after we have something better in place&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>983</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>984</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-59838 Remove after we have something better in place&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>990</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>991</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-59838 Remove after we have something better in place&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>997</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>998</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Remove default value PE-95999 after deployment&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1004</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1005</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: implement the schema once merged&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1011</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1012</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , when we need the headers, let&amp;#39;s think about it, for now, whatever&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1018</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1019</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: to be removed https://traderepublic.atlassian.net/browse/BOT-796&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1025</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1026</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Remove after rabbitMQ deployment integration&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1032</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1033</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: ott.stored_file_reference_id [PE-73486]&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1039</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1040</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: ott.stored_file_reference_id [PE-73486]&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1046</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1047</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: ott.stored_file_reference_id [PE-73486]&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1053</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1054</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: ott.stored_file_reference_id, name and location [PE-73486]&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1060</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1061</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: that, by default, a balance is multilateral unless a particular counterparty is specified)&amp;amp;#13;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1067</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1068</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: that transfers are processed only when the balance in the account to be debited is sufficient to pass the liquidity transfer instruction and remain positive. Based on the criteria received within the LiquidityCreditTransfer message, the transaction administrator will execute or reject the requested transfer.&amp;amp;#13;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1074</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1075</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: the sending MessagingEndpoint might be different from the sending address potentially contained in the transport header (as defined in the transport layer).&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1081</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1082</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: the receiving MessagingEndpoint might be different from the receiving address potentially contained in the transport header (as defined in the transport layer).&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1088</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1089</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Times must be normalized, using the &amp;#34;Z&amp;#34; annotation.&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1095</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1096</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: this is named &amp;#34;PossResend&amp;#34; in FIX - this is an application level resend not a network level retransmission.&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1102</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1103</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: the sending MessagingEndpoint might be different from the sending address potentially contained in the transport header (as defined in the transport layer).&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1109</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1110</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: the receiving MessagingEndpoint might be different from the receiving address potentially contained in the transport header (as defined in the transport layer).&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1116</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1117</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Times must be normalized, using the &amp;#34;Z&amp;#34; annotation.&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1123</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1124</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: this is named &amp;#34;PossResend&amp;#34; in FIX - this is an application level resend not a network level retransmission.&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1130</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1131</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: for the final amount settled for a commercial transaction.&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1137</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1138</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: for the final amount settled for a commercial transaction.&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1144</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1145</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1151</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1152</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1158</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1159</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1165</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1166</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1172</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1173</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: for the final amount settled for a commercial transaction.&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1179</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1180</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: for the final amount settled for a commercial transaction.&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1186</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1187</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1193</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1194</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1200</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1201</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1207</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1208</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&amp;lt;/xs:documentation&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1214</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1215</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: This must be the only appender for the PRODUCTION environment --&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1221</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1222</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: change after https://traderepublic.atlassian.net/browse/PE-63555&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1228</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1229</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: after some time, after launch, who knows when, remove the &amp;#34;allow list&amp;#34; part&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1235</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1236</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Move these in a common persistence helper&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1242</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1243</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (PE-99757 finish after)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1249</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1250</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (PE-99757 finish after)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1256</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1257</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: remove after deployment&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1263</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1264</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: finish in https://traderepublic.atlassian.net/browse/PE-89847&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1270</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1271</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;PE-99757 finish after&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1277</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1278</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;PE-99757 finish after&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1284</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1285</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;PE-99757 finish after&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1291</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1292</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;PE-99757 finish after&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1298</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1299</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (PE-99757 finish after)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1305</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1306</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (PE-99757 finish after)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1312</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1313</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: once we create a new type, here it should be a list&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1319</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1320</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: for the future:&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1326</td>
+        <td><span class="tag BUG">BUG</span></td>
+        <td>BUG: &#34;&gt;BUG&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1327</td>
+        <td><span class="tag BUG">BUG</span></td>
+        <td>BUG: in the library. When using 2 slots in 2 different tests it fails&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1333</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1334</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: remove once we do outgoing&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1340</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1341</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;finish once we do outgoing&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1347</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1348</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;finish once we do outgoing&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1354</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1355</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: set to true, the command content should be set`() {&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1361</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1362</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: ).isEqualTo(command.toString())&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1368</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1369</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: set to true, an empty note should be set`() {&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1375</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1376</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: ).isEmpty()&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1382</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1383</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: should be set`() {&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1389</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1390</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: ).isEmpty()&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1396</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1397</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: create an actual test that makes sure that the output is actually what we expect for all those cases&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1403</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1404</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: once we add SDD, we need to add these tests&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1410</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1411</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-57124 Remove this test and replace it with the commented ones&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1417</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1418</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-57124 uncomment the @Test and use the code below to jumpstart this&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1424</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1425</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-57124 uncomment the @Test and use the code below to jumpstart this&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1431</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1432</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-57124 uncomment the @Test and use the code below to jumpstart this&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1438</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1439</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-57124 uncomment the @Test and use the code below to jumpstart this&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1445</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1446</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: think on how to actually write this test&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1452</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1453</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , once we add the data into the transfer, we need to test that these are called only when the data is null&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1459</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1460</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , once we add the data into the transfer, we need to test that these are called only when the data is null&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1466</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1467</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , once we add the data into the transfer, we need to test that these are called only when the data is null&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1473</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1474</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;PE-99757 finish after DB migration&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1480</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1481</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;PE-99757 finish after DB migration&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1487</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1488</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;PE-99757 finish after DB migration&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1494</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1495</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;PE-99757 finish after DB migration&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1501</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1502</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;PE-99757 finish after&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1508</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1509</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;PE-99757 finish after&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1515</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1516</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: ()&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1522</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1523</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = &amp;#34;note&amp;#34;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1529</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1530</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = note,&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1536</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1537</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: )&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1543</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1544</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = &amp;#34;note&amp;#34;,&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1550</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1551</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = &amp;#34;note&amp;#34;,&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1557</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1558</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = &amp;#34;&amp;#34;,&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1564</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1565</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;Not yet implemented&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1571</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1572</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;Not yet implemented&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1578</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1579</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;Not yet implemented&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1585</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1586</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = &amp;#34;note&amp;#34;,&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1592</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1593</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: to be refixed&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1599</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1600</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: ADD THIS !! c54_minimal_data.xml FIX TESTS&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1606</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1607</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1613</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1614</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1620</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1621</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1627</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1628</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1634</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1635</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1641</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1642</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1648</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1649</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1655</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1656</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1662</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1663</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: This will be covered with PE-110873&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1669</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1670</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: add a test that ensure that what is generated here, actually has a correct hmac signature in https://traderepublic.atlassian.net/browse/PE-78079&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1676</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1677</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: replace with schema later, although it&amp;#39;s just small and doesn&amp;#39;t matter&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1683</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1684</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: finishi &amp;#34;https://traderepublic.atlassian.net/browse/PE-89847&amp;#34;,&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1690</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1691</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1697</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1698</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;PE-99757 finish after&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1704</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1705</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&amp;#34;PE-99757 finish after&amp;#34;)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1711</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1712</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: - fix flaky test&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1718</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1719</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Fix this tests&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1725</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1726</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-112217 use actual event&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1732</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1733</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (Change after BDL changes)&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1739</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1740</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: this might need to be fixed later, for now we focus on iSCT&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1746</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: &#34;&gt;TODO&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1747</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , either fix them or move them out to a script&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1753</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1754</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: ! This is different in testing&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1760</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1761</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;#34;: &amp;#34;This is the second version of the main URL for VOP&amp;#34;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1767</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1768</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;#34;: &amp;#34;This is the second version of the main URL for VOP&amp;#34;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1774</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1775</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;#34;: &amp;#34;URI added by FZ&amp;#34;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1781</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1782</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;#34;: &amp;#34;This is the second version of the main URL for VOP&amp;#34;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1788</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1789</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;#34;: &amp;#34;This is the second version of the main URL for VOP&amp;#34;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1795</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1796</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;#34;: &amp;#34;This is the second version of the main URL for VOP&amp;#34;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1802</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1803</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1809</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1810</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1816</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1817</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1823</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1824</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1830</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1831</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1837</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1838</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1844</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1845</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1851</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1852</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1858</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1859</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1865</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1866</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1872</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1873</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1879</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1880</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1886</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1887</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1893</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1894</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1900</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1901</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1907</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;&gt;NOTE&lt;/span&gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>report.html</td>
+        <td>1908</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &amp;lt;/Cd&amp;gt;&lt;/td&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/IdempotentProcessor.kt</td>
+        <td>22</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: this will apply duplication prevention, meaning that given a list with length N, your application service</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/escrow/AutoAcceptStuckEscrowTransfersApplicationService.kt</td>
+        <td>23</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/filerequest/docs/application_service_flow.md</td>
+        <td>430</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over RSSFAS: Retry mechanism</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/filerequest/docs/application_service_flow.md</td>
+        <td>439</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: over FPDAS: Manual intervention may be required</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/filerequest/receive/RemoteSystemReceiveFileApplicationService.kt</td>
+        <td>19</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/sepacredit/incoming/bulk/returns/create/CreateIncomingSepaTransferReturnBulkApplicationService.kt</td>
+        <td>35</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/sepacredit/incoming/transfer/recall/RecallIncomingSepaTransferApplicationService.kt</td>
+        <td>40</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: https://traderepublic.atlassian.net/browse/PE-97888</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/sepacredit/incoming/transfer/transition/mapper/IncomingSepaTransferEventMapper.kt</td>
+        <td>54</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Remove default value PE-95999 after deployment</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/sepacredit/incoming/transfer/transition/mapper/IncomingSepaTransferEventMapper.kt</td>
+        <td>72</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Remove default value PE-95999 after deployment</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/sepacredit/outgoing/bulk/create/CreateOutgoingSepaTransfersBulkApplicationService.kt</td>
+        <td>39</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/sepacredit/outgoing/bulk/rejection/bulkrejection/OutgoingSepaBulkRejectionApplicationService.kt</td>
+        <td>35</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: the domain rejection reason should already be in the Command, an not passed a String and then parsed again</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/sepadebit/incoming/bulk/internalcancellation/create/CreateIncomingSepaDebitInternalCancellationBulkApplicationService.kt</td>
+        <td>33</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/sepadebit/incoming/transfer/initiatecollection/InitiateIncomingSepaDebitTransferCollectionApplicationService.kt</td>
+        <td>20</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/sepadebit/incoming/transfer/initiatecollection/InitiateIncomingSepaDebitTransferCollectionApplicationService.kt</td>
+        <td>34</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: to be removed once we actually go live</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/sepadebit/incoming/transfer/rejectnonclaimed/RejectNonClaimedIncomingSepaDebitTransferApplicationService.kt</td>
+        <td>23</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/sepainstant/incoming/recall/acceptanceresponse/HandleIncomingSepaInstantRecallAcceptanceResponseApplicationService.kt</td>
+        <td>49</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: In the future we may want to handle this edge case and have a proper flow for it. Leaving the try catch to make us more aware of it. It depends on how frequently this happens.</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/sepainstant/outgoing/unstuck/successful/UnstuckSuccessfulOutgoingSepaInstantTransfersApplicationService.kt</td>
+        <td>23</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/t2/file/T2FileProcessingApplicationService.kt</td>
+        <td>74</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: I would love to split this section from being: get file, split it, process all to</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/t2/file/create/T2CreateFetchBalanceFileRequestApplicationService.kt</td>
+        <td>20</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/t2/file/create/T2CreateOutgoingTransfersFileRequestApplicationService.kt</td>
+        <td>33</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Changes to the scheduling policy may require revisiting idempotency considerations.</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/t2/liquidity/transfer/incoming/transform/T2TransformLiquidityBookingToIncomingT2LiquidityTransferApplicationService.kt</td>
+        <td>51</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Temp check - will be removed after rolling this out completely</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/t2/liquidity/transfer/outgoing/transform/T2TransformLiquidityBookingToOutgoingT2LiquidityTransferApplicationService.kt</td>
+        <td>61</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Temp check - will be removed after rolling this out completely</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/t2/liquidity/transfer/outgoing/transition/OutgoingT2LiquidityTransferStateTransitionApplicationService.kt</td>
+        <td>93</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: This is a temporary solution which should be removed after we start to parse TIPS C54 account statements</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/t2/liquidity/transfer/outgoing/transition/OutgoingT2LiquidityTransferStateTransitionApplicationService.kt</td>
+        <td>101</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: This is a temporary solution which should be removed after we start to parse TIPS C54 account statements</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/application/service/t2/outgoing/create/T2CreateOutgoingTransferApplicationService.kt</td>
+        <td>121</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: remove feature flag after successful switching to the events-driven execution</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/common/participants/ParticipantDetailsConverter.kt</td>
+        <td>17</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-89882</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/common/prevention/AbstractCommandDuplicationPreventionStrategy.kt</td>
+        <td>41</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = if (withNote) command.toString() else &#34;&#34;,</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/common/prevention/AbstractCommandDuplicationPreventionStrategy.kt</td>
+        <td>49</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = if (withNote) command.toString() else &#34;&#34;,</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/sepacredit/incoming/transfer/IncomingSepaTransfer.kt</td>
+        <td>107</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-72093 : Don&#39;t allow transition to RECEIVED</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/sepacredit/incoming/transfer/event/IncomingMainModuleEventSepaFactory.kt</td>
+        <td>70</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Pass actual value with PE-89537</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/sepacredit/incoming/transfer/event/IncomingMainModuleEventSepaFactory.kt</td>
+        <td>79</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Pass actual value with PE-89537</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/sepacredit/incoming/transfer/notifier/IncomingTransferRequestFactory.kt</td>
+        <td>44</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: add our TR as Source Account</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/sepacredit/outgoing/bulk/rejection/OutgoingSepaBulkRejection.kt</td>
+        <td>6</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: this should be a SepaBulkRejectionReason object... this sounds like a Bulk!</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/sepacredit/outgoing/bulk/rejection/OutgoingSepaBulkRejectionFactory.kt</td>
+        <td>4</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: this should be a SepaBulkRejectionReasonFactory object... this sounds like a Bulk!</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/sepadebit/incoming/action/IncomingSepaDebitTransferActionToEventMapper.kt</td>
+        <td>33</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: maybe add reasons here too</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/sepadebit/incoming/transfer/event/factory/IncomingMainModuleEventSepaDebitFactory.kt</td>
+        <td>44</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: FIX THIS PROPERLY if Really needed?</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/sepadebit/incoming/transfer/event/factory/IncomingMainModuleEventSepaDebitFactory.kt</td>
+        <td>78</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: FIX THIS PROPERLY if Really needed?</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/sepadebit/incoming/transfer/event/factory/IncomingMainModuleEventSepaDebitFactory.kt</td>
+        <td>147</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: FIX THIS PROPERLY if Really needed?</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/sepainstant/incoming/event/IncomingMainModuleEventSepaInstantFactory.kt</td>
+        <td>183</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Change this in</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/sepainstant/incoming/event/OutgoingTransferReceivedDomainEvent.kt</td>
+        <td>9</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: , this isn&#39;t a DomainEvent</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/sepainstant/tips/message/TipsMessageFactory.kt</td>
+        <td>26</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: should have 1 class to create the message and 1 to sign it.. but for another day</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/t2/incoming/IncomingT2Transfer.kt</td>
+        <td>116</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: https://traderepublic.atlassian.net/browse/PE-81440</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/t2/liquidity/transfer/outgoing/balance/OutgoingLiquidityTransferTipsAccountBalanceManagerCreditingResolver.kt</td>
+        <td>9</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: This is a temporary solution which should be removed after we start to parse TIPS C54 account statements</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/domain/transfer/incoming/event/IncomingTransferReceivedDomainEvent.kt</td>
+        <td>14</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: , this isn&#39;t a DomainEvent</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/bundesbank/sepacredit/rejections/RejectionClassifier.kt</td>
+        <td>8</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-57124 use the code below to jumpstart</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/file/scf/SCFLogicalFileTypeDetector.kt</td>
+        <td>19</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: that: a Settled Credit Files has several fields for the bulks, one for each bulk of logical files.</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/ParallelOutboxPublisherManager.kt</td>
+        <td>47</td>
+        <td><span class="tag BUG">BUG</span></td>
+        <td>BUG: on [FlowKt_Context] line 125 -&gt; it should be a AND condition, not a OR</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/kafka/MessageConverter.kt</td>
+        <td>10</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: to developer: implementation should be a valid spring bean.</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/kafka/incomingtransfer/action/mapper/IncomingTransferActionKafkaMapper.kt</td>
+        <td>28</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: properly add reasons</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/kafka/incomingtransfer/event/mapper/IncomingTransferDomainEventKafkaMapper.kt</td>
+        <td>105</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Remove this with https://traderepublic.atlassian.net/browse/PE-76534</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/kafka/incomingtransfer/event/mapper/KafkaIncomingTransferMapper.kt</td>
+        <td>37</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , once we store this data, we should only call the mappers if the data is null</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/kafka/incomingtransfer/event/mapper/KafkaIncomingTransferMapper.kt</td>
+        <td>38</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , once we store this data, we should only call the mappers if the data is null</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/kafka/incomingtransfer/event/mapper/KafkaIncomingTransferMapper.kt</td>
+        <td>39</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , once we store this data, we should only call the mappers if the data is null</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/kafka/incomingtransfer/event/mapper/participant/KafkaIncomingPersonalInformationMapper.kt</td>
+        <td>66</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , check the schema if it supports this</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/kafka/incomingtransfer/event/mapper/participant/KafkaIncomingPersonalInformationMapper.kt</td>
+        <td>67</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , check the schema if it supports this</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/kafka/incomingtransfer/event/mapper/participant/KafkaIncomingPersonalInformationMapper.kt</td>
+        <td>68</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , check the schema if it supports this</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/kafka/t2/bankbooking/messagefactory/T2BankBookingDomainEventMessageFactory.kt</td>
+        <td>42</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: We need proper Tracing -&gt; https://traderepublic.atlassian.net/browse/PE-59838</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/RabbitMessageRepository.kt</td>
+        <td>21</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: after PR approval move this into a generic outbox package, as now it&#39;s not rabbit specific :)</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/RabbitMessageRepository.kt</td>
+        <td>53</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: replace the whole interface with something leaner</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/sepa/incoming/event/domain/RabbitIncomingSepaTransferEventNotifierFacade.kt</td>
+        <td>31</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Remove this after the feature flag is enabled and removed</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/sepa/rejection/SepaRejectionOutboxResolver.kt</td>
+        <td>22</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-58033</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/sepa/rejection/SepaRejectionRequestPayloadMapper.kt</td>
+        <td>21</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-58033</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/sepainstant/accountstatement/RabbitSepaInstantAccountStatementReportNotifier.kt</td>
+        <td>19</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: kept it way simple because it might be worth refactoring into a &#34;Report generic dispatcher&#34;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/sepainstant/accountstatement/RabbitSepaInstantAccountStatementReportNotifier.kt</td>
+        <td>27</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: this and the EndOfTheDay are way too similar, might be worth refactoring on the next round</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/sepainstant/directory/RabbitSepaInstantDirectoryReportNotifier.kt</td>
+        <td>28</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: this and the EndOfTheDay are way too similar, might be worth refactoring on the next round</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/tips/incoming/event/TipsSepaInstantEventFactory.kt</td>
+        <td>43</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Change this in</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/flyway/FlywayConfiguration.kt</td>
+        <td>50</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: , incompatible with Flyway version 9.20.1 due to broken Spring compatibility.</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/postgres/duplicate/prevention/DuplicatePreventionRecordFactory.kt</td>
+        <td>21</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: ,</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/postgres/duplicate/prevention/DuplicatePreventionRepository.kt</td>
+        <td>25</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: traceId?</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/postgres/financialaddress/repository/PostgresqlFinancialAddressConfigurationRepository.kt</td>
+        <td>15</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: make it better, but this is just for the launch</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/repository/transactional/HistoricalTransactionalRepository.kt</td>
+        <td>47</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: remove one day the transaction manager from here... useless. Problem is, without this,</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/infrastructure/transformer/idf/internalcancellation/rejections/RejectionReasonCodeMapper.kt</td>
+        <td>12</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: -&gt; https://traderepublic.atlassian.net/browse/PE-83843 better mapping</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/interfaces/observability/Tracing.kt</td>
+        <td>33</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-59838 Remove after we have something better in place</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/interfaces/observability/Tracing.kt</td>
+        <td>36</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-59838 Remove after we have something better in place</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/interfaces/observability/Tracing.kt</td>
+        <td>39</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-59838 Remove after we have something better in place</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/interfaces/rabbit/listener/internal/sepa/credit/action/mapper/IncomingSepaCreditTransferActionMapper.kt</td>
+        <td>58</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Remove default value PE-95999 after deployment</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/interfaces/rabbit/listener/internal/sepainstant/tips/report/chunk/NewTipsAccountStatementChunkListener.kt</td>
+        <td>31</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: implement the schema once merged</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/interfaces/rabbit/retry/QueueRetryManager.kt</td>
+        <td>68</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , when we need the headers, let&#39;s think about it, for now, whatever</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/kotlin/com/traderepublic/banking/sepa/interfaces/rest/transfer/TransferDetailsResponseObject.kt</td>
+        <td>13</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: to be removed https://traderepublic.atlassian.net/browse/BOT-796</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/application.yaml</td>
+        <td>93</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Remove after rabbitMQ deployment integration</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/db/public/migration/V110.2__add_transfer_view.sql</td>
+        <td>39</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: ott.stored_file_reference_id [PE-73486]</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/db/public/migration/V112.2__update_transfer_view.sql</td>
+        <td>40</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: ott.stored_file_reference_id [PE-73486]</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/db/public/migration/V116.1__update_transfer_view.sql</td>
+        <td>40</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: ott.stored_file_reference_id [PE-73486]</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/db/public/migration/view/R__t2_transfer_view.sql</td>
+        <td>50</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: ott.stored_file_reference_id, name and location [PE-73486]</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/camt.003.001.07.xsd</td>
+        <td>173</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: that, by default, a balance is multilateral unless a particular counterparty is specified)&amp;#13;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/camt.050.001.05.xsd</td>
+        <td>229</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: that transfers are processed only when the balance in the account to be debited is sufficient to pass the liquidity transfer instruction and remain positive. Based on the criteria received within the LiquidityCreditTransfer message, the transaction administrator will execute or reject the requested transfer.&amp;#13;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/head.001.001.01.xsd</td>
+        <td>106</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: the sending MessagingEndpoint might be different from the sending address potentially contained in the transport header (as defined in the transport layer).&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/head.001.001.01.xsd</td>
+        <td>114</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: the receiving MessagingEndpoint might be different from the receiving address potentially contained in the transport header (as defined in the transport layer).&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/head.001.001.01.xsd</td>
+        <td>136</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Times must be normalized, using the &#34;Z&#34; annotation.&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/head.001.001.01.xsd</td>
+        <td>155</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: this is named &#34;PossResend&#34; in FIX - this is an application level resend not a network level retransmission.&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/head.001.001.01.xsd</td>
+        <td>189</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: the sending MessagingEndpoint might be different from the sending address potentially contained in the transport header (as defined in the transport layer).&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/head.001.001.01.xsd</td>
+        <td>197</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: the receiving MessagingEndpoint might be different from the receiving address potentially contained in the transport header (as defined in the transport layer).&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/head.001.001.01.xsd</td>
+        <td>219</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: Times must be normalized, using the &#34;Z&#34; annotation.&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/head.001.001.01.xsd</td>
+        <td>238</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: this is named &#34;PossResend&#34; in FIX - this is an application level resend not a network level retransmission.&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/pacs.008.001.08_T2.xsd</td>
+        <td>1022</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: for the final amount settled for a commercial transaction.&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/pacs.008.001.08_T2.xsd</td>
+        <td>1028</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: for the final amount settled for a commercial transaction.&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/pacs.008.001.08_T2.xsd</td>
+        <td>1040</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/pacs.008.001.08_T2.xsd</td>
+        <td>1046</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/pacs.008.001.08_T2.xsd</td>
+        <td>2832</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/pacs.008.001.08_T2.xsd</td>
+        <td>2876</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/pacs.009.001.08.xsd</td>
+        <td>1094</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: for the final amount settled for a commercial transaction.&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/pacs.009.001.08.xsd</td>
+        <td>1100</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: for the final amount settled for a commercial transaction.&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/pacs.009.001.08.xsd</td>
+        <td>1112</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/pacs.009.001.08.xsd</td>
+        <td>1118</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/pacs.009.001.08.xsd</td>
+        <td>2831</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/iso-20022/sepa/xsd/pacs.009.001.08.xsd</td>
+        <td>2875</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: .&lt;/xs:documentation&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/main/resources/logback-spring.xml</td>
+        <td>5</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: This must be the only appender for the PRODUCTION environment --&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/filerequest/upload/FileUploadApplicationServiceUnitTest.kt</td>
+        <td>117</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: change after https://traderepublic.atlassian.net/browse/PE-63555</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/financialaddress/sepadebit/incoming/FinancialAddressConfigurationSepaDirectDebitApplicationServiceTest.kt</td>
+        <td>48</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: after some time, after launch, who knows when, remove the &#34;allow list&#34; part</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/sepacredit/outgoing/file/request/process/rejection/SepaRejectionFileProcessApplicationServiceIntegrationTest.kt</td>
+        <td>209</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Move these in a common persistence helper</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/incoming/CreateIncomingTransferApplicationServiceIntegrationTest.kt</td>
+        <td>139</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (PE-99757 finish after)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/incoming/CreateIncomingTransferApplicationServiceIntegrationTest.kt</td>
+        <td>142</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (PE-99757 finish after)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/incoming/CreateIncomingTransferApplicationServiceIntegrationTest.kt</td>
+        <td>144</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: remove after deployment</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/incoming/CreateIncomingTransferApplicationServiceIntegrationTest.kt</td>
+        <td>183</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: finish in https://traderepublic.atlassian.net/browse/PE-89847</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/incoming/CreateIncomingTransferApplicationServiceIntegrationTest.kt</td>
+        <td>268</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;PE-99757 finish after&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/incoming/CreateIncomingTransferApplicationServiceIntegrationTest.kt</td>
+        <td>272</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;PE-99757 finish after&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/incoming/CreateIncomingTransferApplicationServiceIntegrationTest.kt</td>
+        <td>444</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;PE-99757 finish after&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/incoming/CreateIncomingTransferApplicationServiceIntegrationTest.kt</td>
+        <td>448</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;PE-99757 finish after&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/incoming/CreateIncomingTransferApplicationServiceTest.kt</td>
+        <td>108</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (PE-99757 finish after)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/incoming/CreateIncomingTransferApplicationServiceTest.kt</td>
+        <td>109</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (PE-99757 finish after)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/incoming/common/mapper/ParticipantDetailsMapperTest.kt</td>
+        <td>86</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: once we create a new type, here it should be a list</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/outgoing/create/CreateOutgoingTransferApplicationServiceIntegrationTest.kt</td>
+        <td>50</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: for the future:</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/outgoing/create/CreateOutgoingTransferApplicationServiceIntegrationTest.kt</td>
+        <td>123</td>
+        <td><span class="tag BUG">BUG</span></td>
+        <td>BUG: in the library. When using 2 slots in 2 different tests it fails</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/outgoing/create/CreateOutgoingTransferApplicationServiceIntegrationTest.kt</td>
+        <td>202</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: remove once we do outgoing</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/outgoing/create/CreateOutgoingTransferApplicationServiceIntegrationTest.kt</td>
+        <td>458</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;finish once we do outgoing&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/application/service/transfer/outgoing/create/CreateOutgoingTransferApplicationServiceIntegrationTest.kt</td>
+        <td>513</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;finish once we do outgoing&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/domain/duplicate/prevention/AbstractCommandDuplicationPreventionStrategyTest.kt</td>
+        <td>169</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: set to true, the command content should be set`() {</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/domain/duplicate/prevention/AbstractCommandDuplicationPreventionStrategyTest.kt</td>
+        <td>173</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: ).isEqualTo(command.toString())</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/domain/duplicate/prevention/AbstractCommandDuplicationPreventionStrategyTest.kt</td>
+        <td>187</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: set to true, an empty note should be set`() {</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/domain/duplicate/prevention/AbstractCommandDuplicationPreventionStrategyTest.kt</td>
+        <td>191</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: ).isEmpty()</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/domain/duplicate/prevention/AbstractCommandDuplicationPreventionStrategyTest.kt</td>
+        <td>204</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: should be set`() {</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/domain/duplicate/prevention/AbstractCommandDuplicationPreventionStrategyTest.kt</td>
+        <td>208</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: ).isEmpty()</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/domain/sepainstant/tips/message/resolver/MessageSignatureDataResolverTest.kt</td>
+        <td>20</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: create an actual test that makes sure that the output is actually what we expect for all those cases</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/domain/transfer/incoming/factory/IncomingTransferDomainEventFactoryTest.kt</td>
+        <td>91</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: once we add SDD, we need to add these tests</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/bundesbank/sepacredit/rejections/RejectionClassifierTest.kt</td>
+        <td>10</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-57124 Remove this test and replace it with the commented ones</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/bundesbank/sepacredit/rejections/RejectionClassifierTest.kt</td>
+        <td>22</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-57124 uncomment the @Test and use the code below to jumpstart this</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/bundesbank/sepacredit/rejections/RejectionClassifierTest.kt</td>
+        <td>33</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-57124 uncomment the @Test and use the code below to jumpstart this</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/bundesbank/sepacredit/rejections/RejectionClassifierTest.kt</td>
+        <td>43</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-57124 uncomment the @Test and use the code below to jumpstart this</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/bundesbank/sepacredit/rejections/RejectionClassifierTest.kt</td>
+        <td>57</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-57124 uncomment the @Test and use the code below to jumpstart this</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/kafka/KafkaOutboxInstantBatchJobTest.kt</td>
+        <td>31</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: think on how to actually write this test</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/kafka/incomingtransfer/event/mapper/KafkaIncomingTransferMapperTest.kt</td>
+        <td>14</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , once we add the data into the transfer, we need to test that these are called only when the data is null</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/kafka/incomingtransfer/event/mapper/KafkaIncomingTransferMapperTest.kt</td>
+        <td>15</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , once we add the data into the transfer, we need to test that these are called only when the data is null</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/kafka/incomingtransfer/event/mapper/KafkaIncomingTransferMapperTest.kt</td>
+        <td>16</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , once we add the data into the transfer, we need to test that these are called only when the data is null</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/transfer/incoming/create/mapper/IncomingTransferRequestPayloadMapperTest.kt</td>
+        <td>95</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;PE-99757 finish after DB migration&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/transfer/incoming/create/mapper/IncomingTransferRequestPayloadMapperTest.kt</td>
+        <td>99</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;PE-99757 finish after DB migration&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/transfer/incoming/create/mapper/IncomingTransferRequestPayloadMapperTest.kt</td>
+        <td>235</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;PE-99757 finish after DB migration&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/transfer/incoming/create/mapper/IncomingTransferRequestPayloadMapperTest.kt</td>
+        <td>241</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;PE-99757 finish after DB migration&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/transfer/outgoing/create/RabbitNewOutgoingTransferNotifierUnitTest.kt</td>
+        <td>78</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;PE-99757 finish after&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/transfer/outgoing/create/RabbitNewOutgoingTransferNotifierUnitTest.kt</td>
+        <td>82</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;PE-99757 finish after&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/outbox/rabbit/transfer/outgoing/create/mapper/NewOutgoingTransferPayloadMapperTest.kt</td>
+        <td>57</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: ()</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/postgres/duplicate/prevention/DuplicatePreventionRecordFactoryTest.kt</td>
+        <td>25</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = &#34;note&#34;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/postgres/duplicate/prevention/DuplicatePreventionRecordFactoryTest.kt</td>
+        <td>32</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = note,</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/postgres/duplicate/prevention/DuplicatePreventionRecordFactoryTest.kt</td>
+        <td>45</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: )</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/postgres/duplicate/prevention/DuplicatePreventionRepositoryTest.kt</td>
+        <td>44</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = &#34;note&#34;,</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/postgres/duplicate/prevention/DuplicatePreventionRepositoryTest.kt</td>
+        <td>66</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = &#34;note&#34;,</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/postgres/duplicate/prevention/bulked/DuplicateBulkCommandPreventionImplIntegrationTest.kt</td>
+        <td>37</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = &#34;&#34;,</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/postgres/duplicate/prevention/bulked/DuplicationPreventionProviderTest.kt</td>
+        <td>29</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;Not yet implemented&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/postgres/duplicate/prevention/bulked/DuplicationPreventionProviderTest.kt</td>
+        <td>52</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;Not yet implemented&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/postgres/duplicate/prevention/bulked/DuplicationPreventionProviderTest.kt</td>
+        <td>60</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;Not yet implemented&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/postgres/duplicate/prevention/bulked/PostgresBulkedCommandRepositoryTest.kt</td>
+        <td>132</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: = &#34;note&#34;,</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/persistence/postgres/sepainstant/incoming/PostgresIncomingSepaInstantTransferRepositoryIntegrationTest.kt</td>
+        <td>139</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: to be refixed</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/transformer/t2/c54/ExternalT2BankBookingTransformerTest.kt</td>
+        <td>44</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: ADD THIS !! c54_minimal_data.xml FIX TESTS</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/transformer/t2/nov2025/Camt004HandlerTest.kt</td>
+        <td>14</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/transformer/t2/nov2025/Camt004HandlerTest.kt</td>
+        <td>99</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/transformer/t2/nov2025/Camt025HandlerTest.kt</td>
+        <td>11</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/transformer/t2/nov2025/Camt053HandlerTest.kt</td>
+        <td>11</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/transformer/t2/nov2025/Camt054HandlerTest.kt</td>
+        <td>11</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/transformer/t2/nov2025/Pacs002HandlerTest.kt</td>
+        <td>11</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/transformer/t2/nov2025/Pacs004HandlerTest.kt</td>
+        <td>11</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/transformer/t2/nov2025/Pacs009HandlerTest.kt</td>
+        <td>25</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/transformer/tips/IncomingTipsInMessageXmlTransformerTest.kt</td>
+        <td>172</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: This will be covered with PE-110873</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/infrastructure/transformer/tips/outgoing/creation/TipsOutgoingNewInstantTransferTransformerTest.kt</td>
+        <td>54</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: add a test that ensure that what is generated here, actually has a correct hmac signature in https://traderepublic.atlassian.net/browse/PE-78079</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/interfaces/rabbit/listener/internal/sepainstant/tips/report/chunk/NewTipsAccountStatementChunkListenerTest.kt</td>
+        <td>26</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: replace with schema later, although it&#39;s just small and doesn&#39;t matter</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/interfaces/rabbit/listener/internal/transfer/incoming/IncomingTransferRequestPriorityRabbitListenerIntegrationTest.kt</td>
+        <td>49</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: finishi &#34;https://traderepublic.atlassian.net/browse/PE-89847&#34;,</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/interfaces/rabbit/listener/internal/transfer/incoming/IncomingTransferRequestPriorityRabbitListenerIntegrationTest.kt</td>
+        <td>70</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/interfaces/rabbit/listener/internal/transfer/incoming/IncomingTransferRequestPriorityRabbitListenerIntegrationTest.kt</td>
+        <td>80</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;PE-99757 finish after&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/interfaces/rabbit/listener/internal/transfer/incoming/IncomingTransferRequestPriorityRabbitListenerIntegrationTest.kt</td>
+        <td>82</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (&#34;PE-99757 finish after&#34;)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/interfaces/rabbit/listener/internal/transfer/outgoing/RecordOutgoingTransferNewRabbitListenerTest.kt</td>
+        <td>31</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: - fix flaky test</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/interfaces/scheduled/sepadebit/incoming/rejection/bulk/IncomingSepaDebitTransferRejectionBulkJobConfigTest.kt</td>
+        <td>25</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: Fix this tests</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/testing/libraries/testdatafactories/sepacredit/outgoing/recall/domain/OutgoingSepaCreditRecallTDF.kt</td>
+        <td>137</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: PE-112217 use actual event</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/testing/libraries/testdatafactories/transfer/incoming/event/kafka/KafkaIncomingTransferDomainEventTestDataFactory.kt</td>
+        <td>94</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: (Change after BDL changes)</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/com/traderepublic/banking/sepa/testing/libraries/testdatafactories/transfer/outgoing/event/rabbit/ParticipantDetailsPayloadSchemaTestDataFactory.kt</td>
+        <td>225</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: this might need to be fixed later, for now we focus on iSCT</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/kotlin/script/GenerateTipsInMessagesTest.kt</td>
+        <td>17</td>
+        <td><span class="tag TODO">TODO</span></td>
+        <td>TODO: , either fix them or move them out to a script</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/application-test.yaml</td>
+        <td>32</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: ! This is different in testing</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/eds/eds-records-example.json</td>
+        <td>51</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;: &#34;This is the second version of the main URL for VOP&#34;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/eds/eds-records-example.json</td>
+        <td>101</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;: &#34;This is the second version of the main URL for VOP&#34;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/eds/eds-records-example.json</td>
+        <td>150</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;: &#34;URI added by FZ&#34;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/eds/eds-records-example.json</td>
+        <td>200</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;: &#34;This is the second version of the main URL for VOP&#34;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/eds/eds-records-example.json</td>
+        <td>250</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;: &#34;This is the second version of the main URL for VOP&#34;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/eds/eds-records-example.json</td>
+        <td>300</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &#34;: &#34;This is the second version of the main URL for VOP&#34;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/camt004Files/clm-balances.xml</td>
+        <td>46</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/camt004Files/clm-balances.xml</td>
+        <td>60</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/t2/balanceFetchResponse/camt004-and-camt003.xml</td>
+        <td>174</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/t2/balanceFetchResponse/camt004-and-camt003.xml</td>
+        <td>188</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/t2/balanceFetchResponse/camt004-and-camt003.xml</td>
+        <td>650</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/t2/balanceFetchResponse/camt004-and-camt003.xml</td>
+        <td>664</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/t2/balanceFetchResponse/camt004-and-camt003.xml</td>
+        <td>1126</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/t2/balanceFetchResponse/camt004-and-camt003.xml</td>
+        <td>1140</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/t2/balanceFetchResponse/camt004-and-camt003.xml</td>
+        <td>1617</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/t2/balanceFetchResponse/camt004-and-camt003.xml</td>
+        <td>1631</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/t2/camt004Files/camt.004.t2.xml</td>
+        <td>166</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/t2/camt004Files/camt.004.t2.xml</td>
+        <td>180</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/t2/camt004Files/camt.004.t2.xml</td>
+        <td>647</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/t2/camt004Files/camt.004.t2.xml</td>
+        <td>661</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/t2/nov2025/camt004/camt.004_RTGS_ReturnAccount_bs300.xml</td>
+        <td>73</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    <tr>
+        <td>src/test/resources/iso-20022/t2/nov2025/camt004/camt.004_RTGS_ReturnAccount_bs300.xml</td>
+        <td>87</td>
+        <td><span class="tag NOTE">NOTE</span></td>
+        <td>NOTE: &lt;/Cd&gt;</td>
+    </tr>
+    
+    </tbody>
+</table>
+
+<footer style="margin-top:2em; font-size:0.9em; color:#777;">
+    generated by <strong>todototum</strong>
+    
+</footer>
+</body>
+</html>
