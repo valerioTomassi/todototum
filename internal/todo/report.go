@@ -20,9 +20,9 @@ type Summary struct {
 
 // TagStat provides a stable, presentation-friendly view of per-tag counts.
 type TagStat struct {
-	Tag     string `json:"tag"`
-	Count   int    `json:"count"`
-	Percent int    `json:"percent"`
+	Tag     string  `json:"tag"`
+	Count   int     `json:"count"`
+	Percent float64 `json:"percent"`
 }
 
 // ReportData feeds data into the HTML and JSON report templates.
@@ -85,7 +85,7 @@ func buildReportData(items []Todo) ReportData {
 		}
 		return cp[i].File < cp[j].File
 	})
-	// Build TagStats in alphabetical order with integer percentages.
+	// Build TagStats in alphabetical order with percentages rounded to one decimal place.
 	keys := make([]string, 0, len(counts))
 	for k := range counts {
 		keys = append(keys, k)
@@ -95,9 +95,10 @@ func buildReportData(items []Todo) ReportData {
 	stats := make([]TagStat, 0, len(keys))
 	for _, k := range keys {
 		c := counts[k]
-		pct := 0
+		var pct float64
 		if total > 0 {
-			pct = int(math.Round(float64(c) * 100.0 / float64(total)))
+			// one decimal precision
+			pct = math.Round((float64(c)*100.0/float64(total))*10) / 10
 		}
 		stats = append(stats, TagStat{Tag: k, Count: c, Percent: pct})
 	}
@@ -163,7 +164,7 @@ func GenerateMarkdownReportWithWriter(items []Todo, output string, w FileWriter)
 	// Stable list of tags using TagStats (already sorted)
 	if len(data.TagStats) > 0 {
 		for _, ts := range data.TagStats {
-			b.WriteString(fmt.Sprintf("- %s: %d (%d%%)\n", ts.Tag, ts.Count, ts.Percent))
+			b.WriteString(fmt.Sprintf("- %s: %d (%.1f%%)\n", ts.Tag, ts.Count, ts.Percent))
 		}
 	}
 	b.WriteString("\n")

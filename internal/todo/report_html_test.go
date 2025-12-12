@@ -155,7 +155,7 @@ func TestBuildReportData_EnrichesTextAndComputesPercents(t *testing.T) {
 		t.Fatalf("unexpected texts: got %v want %v", gotTexts, wantTexts)
 	}
 
-	// Summary counts and TagStats with integer percentages
+	// Summary counts and TagStats with fractional percentages
 	if data.Summary.Total != 3 {
 		t.Fatalf("total = %d, want 3", data.Summary.Total)
 	}
@@ -174,7 +174,7 @@ func TestBuildReportData_EnrichesTextAndComputesPercents(t *testing.T) {
 	}
 	// Percentages should sum approx 100 after rounding
 	sum := data.TagStats[0].Percent + data.TagStats[1].Percent
-	if sum < 99 || sum > 101 {
-		t.Fatalf("unexpected percent sum: %d", sum)
+	if sum < 99.0 || sum > 101.0 {
+		t.Fatalf("unexpected percent sum: %v", sum)
 	}
 }

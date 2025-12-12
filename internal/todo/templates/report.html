@@ -168,7 +168,7 @@
         <div class="label"><span class="tag {{.Tag}}">{{.Tag}}</span></div>
         <div style="text-align:right">
             <div class="count">{{.Count}}</div>
-            <div class="percent">{{.Percent}}%</div>
+            <div class="percent">{{printf "%.1f" .Percent}}%</div>
         </div>
     </div>
     {{end}}
