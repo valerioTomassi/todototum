@@ -335,7 +335,6 @@
         const fileInput = $('#filter-file');
         const textInput = $('#filter-text');
         const tagsContainer = $('#filter-tags');
-        const rows = $$('#report-rows tr');
 
         // If tbody doesn't have id yet, find it
         let tbody = $('tbody');
@@ -363,13 +362,56 @@
                 const textVal = tr.getAttribute('data-text') || '';
                 const tagVal = tr.getAttribute('data-tag') || '';
 
-                const okFile = matches(fileVal, fileQ);
+                const okFile = fileMatches(fileVal, fileQ);
                 const okText = matches(textVal, textQ);
                 const okTag = !useTagFilter || selectedTags.includes(tagVal);
 
                 const show = okFile && okText && okTag;
                 tr.style.display = show ? '' : 'none';
             }
+        }
+
+        // Enhanced file matcher supporting:
+        // - simple substring match (default)
+        // - prefix match when query ends with '/'
+        // - glob tokens '*' and '?' (case-insensitive)
+        // - multiple patterns separated by comma or whitespace (OR logic)
+        function fileMatches(filePath, query) {
+            if (!query) return true;
+            const q = query.trim();
+            // Support multiple patterns: split on commas or whitespace
+            const parts = q.split(/[\s,]+/).map(s => s.trim()).filter(Boolean);
+            if (parts.length === 0) return true;
+
+            // Precompile predicates for each part
+            const preds = parts.map(makeOneFilePredicate);
+            const f = filePath.toLowerCase();
+            return preds.some(pred => pred(f));
+        }
+
+        function makeOneFilePredicate(raw) {
+            const q = raw.toLowerCase();
+            // Prefix convenience: if ends with '/', treat as path prefix
+            if (q.endsWith('/')) {
+                const prefix = q;
+                return (f) => f.toLowerCase().startsWith(prefix);
+            }
+            // If contains glob tokens, convert to regex (anchor full string)
+            if (q.includes('*') || q.includes('?')) {
+                const regex = globToRegex(q);
+                return (f) => regex.test(f);
+            }
+            // Fallback: substring match
+            return (f) => f.includes(q);
+        }
+
+        function globToRegex(glob) {
+            // Escape regex special chars, then replace glob tokens
+            const escapeRe = /[.+^${}()|\\\[\]\-]/g;
+            let pattern = glob.replace(escapeRe, r => `\\${r}`);
+            pattern = pattern.replace(/\*/g, '.*').replace(/\?/g, '.');
+            // Anchor to match the whole string
+            return new RegExp(`^${pattern}$`, 'i');
         }
 
         // Tag chip interactions
