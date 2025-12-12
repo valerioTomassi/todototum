@@ -7,14 +7,14 @@
     <style>
         :root {
             color-scheme: light dark;
-            --bg: #f9fafb;
+            --bg: #ffffff;
             --text: #111;
-            --border: #e5e7eb;
-            --accent: #2563eb;
-            --todo: #f59e0b;
-            --fixme: #ef4444;
-            --bug: #b91c1c;
-            --note: #0ea5e9;
+            --border: #e5e5e7;
+            --accent: #0a84ff; /* macOS blue */
+            --todo: #ffcc00;
+            --fixme: #ff3b30;
+            --bug: #c81e1e;
+            --note: #32ade6;
         }
 
         body {
@@ -45,16 +45,16 @@
         }
 
         .summary .card {
-            background: white;
+            background: #fff;
             border: 1px solid var(--border);
-            border-radius: 0.5em;
-            padding: 0.8em 1.2em;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            border-radius: 12px;
+            padding: 12px 16px;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.03);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 0.6em;
-            min-height: 64px;
+            gap: 8px;
+            min-height: 56px;
         }
 
         .summary .count {
@@ -91,11 +91,12 @@
         }
 
         th {
-            background: #f3f4f6;
+            background: #f7f7f9;
+            font-weight: 600;
         }
 
         tr:nth-child(even) {
-            background: #fafafa;
+            background: #fbfbfd;
         }
 
         /* Prevent the File column from growing too much; allow wrapping */
@@ -133,79 +134,272 @@
             background: var(--note);
             color: #fff;
         }
+
         /* Reasonable default widths via colgroup percentages */
-        col.col-file { width: 38%; }
-        col.col-line { width: 10%; }
-        col.col-tag  { width: 12%; }
-        col.col-text { width: 40%; }
+        col.col-file {
+            width: 38%;
+        }
+
+        col.col-line {
+            width: 10%;
+        }
+
+        col.col-tag {
+            width: 12%;
+        }
+
+        col.col-text {
+            width: 40%;
+        }
 
         @media (max-width: 640px) {
             .summary {
                 grid-template-columns: 1fr 1fr;
             }
-            col.col-file { width: 44%; }
-            col.col-line { width: 12%; }
-            col.col-tag  { width: 16%; }
-            col.col-text { width: 28%; }
+
+            col.col-file {
+                width: 44%;
+            }
+
+            col.col-line {
+                width: 12%;
+            }
+
+            col.col-tag {
+                width: 16%;
+            }
+
+            col.col-text {
+                width: 28%;
+            }
         }
+
         /* Desktop-focused: allow even wider layout on very large screens */
         @media (min-width: 1440px) {
-            .container { max-width: 1440px; }
+            .container {
+                max-width: 1440px;
+            }
+        }
+
+        /* Toolbar (minimal, Apple-ish) */
+        .toolbar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            margin: 8px 0 16px 0;
+        }
+
+        .search {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid var(--border);
+            background: #f2f2f7;
+            border-radius: 10px;
+            padding: 6px 10px;
+        }
+
+        .search input[type="text"] {
+            border: none;
+            background: transparent;
+            outline: none;
+            font: inherit;
+            color: var(--text);
+            min-width: 200px;
+        }
+
+        .tag-filter {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: #f8f8fa;
+            cursor: pointer;
+            user-select: none;
+            font-weight: 600;
+            transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+        }
+
+        .chip:hover {
+            background: #f2f2f7;
+        }
+
+        .chip[data-selected="true"] {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .chip[data-selected="true"] .tag {
+            color: #fff;
+        }
+
+        .chip .count {
+            font-weight: 600;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 640px) {
+            .search input[type="text"] {
+                min-width: 0;
+                width: 120px;
+            }
         }
     </style>
 </head>
 <body>
 <div class="container">
-<h1>todototum report</h1>
+    <h1>todototum report</h1>
 
-<section class="summary">
-    <div class="card">
-        <div class="label">Total</div>
-        <div class="count">{{.Summary.Total}}</div>
-    </div>
-    {{range .TagStats}}
-    <div class="card">
-        <div class="label"><span class="tag {{.Tag}}">{{.Tag}}</span></div>
-        <div style="text-align:right">
-            <div class="count">{{.Count}}</div>
-            <div class="percent">{{printf "%.1f" .Percent}}%</div>
+    <section class="summary">
+        <div class="card">
+            <div class="label">Total</div>
+            <div class="count">{{.Summary.Total}}</div>
         </div>
+        {{range .TagStats}}
+        <div class="card">
+            <div class="label"><span class="tag {{.Tag}}">{{.Tag}}</span></div>
+            <div style="text-align:right">
+                <div class="count">{{.Count}}</div>
+                <div class="percent">{{printf "%.1f" .Percent}}%</div>
+            </div>
+        </div>
+        {{end}}
+    </section>
+
+    <section class="toolbar" aria-label="Filters">
+        <div class="search" aria-label="Filter by file path">
+            <input id="filter-file" type="text" placeholder="File"/>
+        </div>
+        <div class="search" aria-label="Filter by text">
+            <input id="filter-text" type="text" placeholder="Text"/>
+        </div>
+        <div class="tag-filter" id="filter-tags" aria-label="Filter by tag">
+            {{range .TagStats}}
+            <span class="chip" role="button" tabindex="0" data-tag="{{.Tag}}" aria-pressed="false">
+            <span class="tag {{.Tag}}">{{.Tag}}</span>
+            <span class="count">{{.Count}}</span>
+        </span>
+            {{end}}
+        </div>
+    </section>
+
+    <div class="table-container">
+        <table>
+            <colgroup>
+                <col class="col-file">
+                <col class="col-line">
+                <col class="col-tag">
+                <col class="col-text">
+            </colgroup>
+            <thead>
+            <tr>
+                <th>File</th>
+                <th>Line</th>
+                <th>Tag</th>
+                <th>Text</th>
+            </tr>
+            </thead>
+            <tbody>
+            {{range .Todos}}
+            <tr data-file="{{.File}}" data-text="{{.Text}}" data-tag="{{.Tag}}">
+                <td class="col-file-val">{{.File}}</td>
+                <td class="col-line-val">{{.Line}}</td>
+                <td class="col-tag-val"><span class="tag {{.Tag}}">{{.Tag}}</span></td>
+                <td class="col-text-val">{{.Text}}</td>
+            </tr>
+            {{end}}
+            </tbody>
+        </table>
     </div>
-    {{end}}
-</section>
 
-<div class="table-container">
-<table>
-    <colgroup>
-        <col class="col-file">
-        <col class="col-line">
-        <col class="col-tag">
-        <col class="col-text">
-    </colgroup>
-    <thead>
-    <tr>
-        <th>File</th>
-        <th>Line</th>
-        <th>Tag</th>
-        <th>Text</th>
-    </tr>
-    </thead>
-    <tbody>
-    {{range .Todos}}
-    <tr>
-        <td>{{.File}}</td>
-        <td>{{.Line}}</td>
-        <td><span class="tag {{.Tag}}">{{.Tag}}</span></td>
-        <td>{{.Text}}</td>
-    </tr>
-    {{end}}
-    </tbody>
-</table>
+    <footer style="margin-top:2em; font-size:0.9em; color:#777;">
+        generated by <strong>todototum</strong>
+    </footer>
 </div>
+<script>
+    (function () {
+        const $ = (sel, root = document) => root.querySelector(sel);
+        const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
-<footer style="margin-top:2em; font-size:0.9em; color:#777;">
-    generated by <strong>todototum</strong>
-</footer>
-</div>
+        const fileInput = $('#filter-file');
+        const textInput = $('#filter-text');
+        const tagsContainer = $('#filter-tags');
+        const rows = $$('#report-rows tr');
+
+        // If tbody doesn't have id yet, find it
+        let tbody = $('tbody');
+        // apply id to tbody for future queries
+        if (tbody && !tbody.id) tbody.id = 'report-rows';
+
+        function getSelectedTags() {
+            return $$('.chip[data-selected="true"]', tagsContainer).map(chip => chip.getAttribute('data-tag'));
+        }
+
+        function matches(haystack, needle) {
+            if (!needle) return true;
+            return haystack.toLowerCase().includes(needle.toLowerCase());
+        }
+
+        function applyFilters() {
+            const fileQ = fileInput.value.trim();
+            const textQ = textInput.value.trim();
+            const selectedTags = getSelectedTags();
+            const useTagFilter = selectedTags.length > 0;
+
+            const allRows = $$('#report-rows tr');
+            for (const tr of allRows) {
+                const fileVal = tr.getAttribute('data-file') || '';
+                const textVal = tr.getAttribute('data-text') || '';
+                const tagVal = tr.getAttribute('data-tag') || '';
+
+                const okFile = matches(fileVal, fileQ);
+                const okText = matches(textVal, textQ);
+                const okTag = !useTagFilter || selectedTags.includes(tagVal);
+
+                const show = okFile && okText && okTag;
+                tr.style.display = show ? '' : 'none';
+            }
+        }
+
+        // Tag chip interactions
+        function toggleChip(chip) {
+            const isSel = chip.getAttribute('data-selected') === 'true';
+            const next = !isSel;
+            chip.setAttribute('data-selected', String(next));
+            chip.setAttribute('aria-pressed', String(next));
+            applyFilters();
+        }
+
+        tagsContainer?.addEventListener('click', (e) => {
+            const chip = e.target.closest('.chip');
+            if (chip) toggleChip(chip);
+        });
+        tagsContainer?.addEventListener('keydown', (e) => {
+            const chip = e.target.closest('.chip');
+            if (!chip) return;
+            if (e.key === ' ' || e.key === 'Enter') {
+                e.preventDefault();
+                toggleChip(chip);
+            }
+        });
+
+        fileInput?.addEventListener('input', applyFilters);
+        textInput?.addEventListener('input', applyFilters);
+
+        // Initialize reference to rows after ensuring tbody id
+        applyFilters();
+    })();
+</script>
 </body>
 </html>
